@@ -1,27 +1,14 @@
 <?php
 
+// include files
+require_once __DIR__ . '/includes/includes.php';
+
+// define constants
+define('CM_PHP_VERSION', '5.4');
+define('CM_WP_VERSION', '3.5');
 define('CM_TEXT_DOMAIN', 'codeline-movies');
 
-/**
- * Codeline Movies Theme functions and definitions
- *
- * @link https://developer.wordpress.org/themes/basics/theme-functions/
- *
- * @package codeline-movies
- */
-
-add_action( 'wp_enqueue_scripts', 'unite_parent_theme_enqueue_styles' );
-
-/**
- * Enqueue scripts and styles.
- */
-function unite_parent_theme_enqueue_styles() {
-	wp_enqueue_style( 'unite-style', get_template_directory_uri() . '/style.css' );
-	wp_enqueue_style( 'codeline-movies-style',
-		get_stylesheet_directory_uri() . '/style.css',
-		array( 'unite-style' )
-	);
-
-}
-
-require_once __DIR__ . '/includes/includes.php';
+// singleton 
+global $codeline_movies;
+$codeline_movies = CodelineMovies::getInstance();
+$codeline_movies::init();
