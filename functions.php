@@ -1,4 +1,7 @@
 <?php
+
+define('CM_TEXT_DOMAIN', 'codeline-movies');
+
 /**
  * Codeline Movies Theme functions and definitions
  *
