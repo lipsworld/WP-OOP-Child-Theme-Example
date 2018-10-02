@@ -8,7 +8,7 @@ namespace Codeline;
  
 class PostTypes {
 
-    protected static $types = [];
+    protected static $types = [], $className = 'Codeline\PostTypes';
     protected static $initialized = false;
 
     public static function instance() {
@@ -21,7 +21,7 @@ class PostTypes {
         return self;
     }
 
-    public static function initialize() {
+    public static function init() {
         
         if (self::$initialized) {
             return;
@@ -79,19 +79,19 @@ class PostTypes {
 
     protected static function metaBox() {
         foreach (self::$types as $name => $args) {
-            if (method_exists('PostTypes', 'add_meta_boxes_' . $name)) {
-                add_action('add_meta_boxes_' . $name, ['PostTypes', 'add_meta_boxes_' . $name]);
+            if (method_exists(self::$className, 'add_meta_boxes_' . $name)) {
+                add_action('add_meta_boxes_' . $name, [self::$className, 'add_meta_boxes_' . $name]);
             }
         }
     }
 
     public static function add_meta_boxes_cl_film($post) {
         
-        if (method_exists('PostTypes', $post->post_type.'_meta_box_html')) {
+        if (method_exists(self::$className, $post->post_type.'_meta_box_html')) {
             add_meta_box(
                 'film-options',
                 __('Film Options', CM_TEXT_DOMAIN), 
-                ['PostTypes', $post->post_type.'_meta_box_html'],
+                [self::$className, $post->post_type.'_meta_box_html'],
                 $post->post_type,
                 'normal',
                 'default'
@@ -121,7 +121,7 @@ class PostTypes {
     }
 
     public static function saveMeta() {
-        add_action('save_post', ['PostTypes', 'saveMetaValues']);
+        add_action('save_post', [self::$className, 'saveMetaValues']);
     }
 
     public static function saveMetaValues($post_id) {

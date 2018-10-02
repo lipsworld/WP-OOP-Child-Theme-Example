@@ -31,9 +31,10 @@ class CodelineMovies{
         add_action('wp_enqueue_scripts', [self::$className, 'enqueueStyles']);
 
         // other init
-        add_action('init', ['Codeline\PostTypes', 'initialize']);
-        add_action('init', ['Codeline\Taxonomies', 'initialize'], 100);
+        add_action('init', ['Codeline\PostTypes', 'init']);
+        add_action('init', ['Codeline\Taxonomies', 'init'], 100);
 
+        add_action('init', ['Codeline\Shortcodes', 'init']);
     }
 
     public static function enqueueScripts() {}

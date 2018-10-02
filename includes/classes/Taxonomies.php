@@ -12,7 +12,7 @@ class Taxonomies {
     protected static $taxonomies = [];
     protected static $initialized = false;
 
-    public static function initialize() {
+    public static function init() {
         
         if (self::$initialized) {
             return;
