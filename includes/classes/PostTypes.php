@@ -30,9 +30,14 @@ class PostTypes {
         self::$initialized = true;
 
         self::$types = [
-            'film' => (object) [
-                'singular' => 'Film',
-                'plural' => 'Films'
+            'cl_film' => [
+                'labels' => (object) [
+                    'singular' => 'Film',
+                    'plural' => 'Films'
+                ],
+                'public' => true,
+                'rewrite' => ['slug' => 'film'],
+                'supports' => ['editor', 'title', 'author', 'comments']
             ]
         ];
 
@@ -45,12 +50,9 @@ class PostTypes {
     }
 
     public static function register() {
-        foreach (self::$types as $name => $labels) {
-            $args = [
-                'public' => true,
-                'labels' => self::labels($labels),
-            ];
-            $type = register_post_type($name, $args);
+        foreach (self::$types as $name => $args) {
+            $args['labels'] = self::labels($args['labels']);
+            register_post_type($name, $args);
         }
     }
 
@@ -83,7 +85,7 @@ class PostTypes {
         }
     }
 
-    public static function add_meta_boxes_film($post) {
+    public static function add_meta_boxes_cl_film($post) {
         
         if (method_exists('PostTypes', $post->post_type.'_meta_box_html')) {
             add_meta_box(
@@ -97,7 +99,7 @@ class PostTypes {
         }
     }
 
-    public static function film_meta_box_html($post) {
+    public static function cl_film_meta_box_html($post) {
         $ticket_price = get_post_meta($post->ID, '_ticket_price', true);
         $release_date = get_post_meta($post->ID, '_release_date', true);
 

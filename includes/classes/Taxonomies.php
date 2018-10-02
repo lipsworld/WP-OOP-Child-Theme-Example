@@ -25,7 +25,7 @@ class Taxonomies {
                     'plural' => 'Genres'
                 ],
                 'hierarchical' => false,
-                'object_type' => 'film'
+                'object_type' => 'cl_film'
             ],
             'country' => [
                 'labels' => (object) [
@@ -33,7 +33,7 @@ class Taxonomies {
                     'plural' => 'Countries'
                 ],
                 'hierarchical' => false,
-                'object_type' => 'film'
+                'object_type' => 'cl_film'
             ],
             'year' => [
                 'labels' => (object) [
@@ -41,7 +41,7 @@ class Taxonomies {
                     'plural' => 'Years'
                 ],
                 'hierarchical' => false,
-                'object_type' => 'film'
+                'object_type' => 'cl_film'
             ],
             'actor' => [
                 'labels' => (object) [
@@ -49,7 +49,7 @@ class Taxonomies {
                     'plural' => 'Actors'
                 ],
                 'hierarchical' => false,
-                'object_type' => 'film'
+                'object_type' => 'cl_film'
             ],
         ];
         self::register();
