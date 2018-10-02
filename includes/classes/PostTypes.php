@@ -104,7 +104,7 @@ class PostTypes {
 
     public static function cl_film_meta_box_html($post) {
         $ticket_price = get_post_meta($post->ID, '_ticket_price', true);
-        $release_date = date('Y-m-d', (int) get_post_meta($post->ID, '_release_date', true));
+        $release_date = date('m/d/Y', (int) get_post_meta($post->ID, '_release_date', true));
 
         ?>
         <?php wp_nonce_field('film-meta', 'film_nonce'); ?>
@@ -116,7 +116,7 @@ class PostTypes {
 
         <p>
             <label for="ticket-price">Release Date <br>
-                <input type="date" name="release-date" id="release-date" class="widefat" value="<?php echo esc_attr($release_date); ?>">
+                <input type="text" name="release-date" id="release-date" class="widefat" value="<?php echo esc_attr($release_date); ?>">
             </label>
         </p>
         

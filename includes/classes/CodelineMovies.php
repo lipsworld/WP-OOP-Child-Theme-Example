@@ -27,8 +27,10 @@ class CodelineMovies{
         add_action('after_switch_theme', [self::$className, 'versionCheck']);
         add_action('after_switch_theme', 'flush_rewrite_rules');
 
-        add_action('wp_enqueue_scripts', [self::$className, 'enqueueScripts']);
         add_action('wp_enqueue_scripts', [self::$className, 'enqueueStyles']);
+
+        // admin enqueue
+        add_action('admin_enqueue_scripts', [self::$className, 'adminEnqueueScripts']);
 
         // other init
         add_action('init', ['Codeline\PostTypes', 'init']);
@@ -37,7 +39,23 @@ class CodelineMovies{
         add_action('init', ['Codeline\Shortcodes', 'init']);
     }
 
-    public static function enqueueScripts() {}
+    public static function adminEnqueueScripts($hook){
+        global $post;
+
+        if ($post->post_type === 'cl_film' && ($hook === 'post.php' || $hook === 'post-new.php')) {
+            
+            wp_register_style('jquery-ui', 'http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/themes/base/jquery-ui.css');
+            wp_enqueue_style( 'jquery-ui' );
+
+            wp_enqueue_script(
+                'cl-admin-movie-edit',
+                get_stylesheet_directory_uri() . '/js/admin-movies-edit.js',
+                array('jquery', 'jquery-ui-core', 'jquery-ui-datepicker'),
+                '',
+                true
+            );
+        }
+    }
 
     public static function enqueueStyles() {
 
