@@ -36,6 +36,7 @@ class PostTypes {
                     'plural' => 'Films'
                 ],
                 'public' => true,
+                'has_archive' => 'films',
                 'rewrite' => ['slug' => 'film'],
                 'supports' => ['editor', 'title', 'author', 'comments']
             ]
@@ -47,6 +48,8 @@ class PostTypes {
             self::metaBox();
             self::saveMeta();
         }
+
+        add_filter('the_content', [self::$className, 'excerptMeta']);
     }
 
     public static function register() {
@@ -160,8 +163,41 @@ class PostTypes {
         }
 
         if (isset($_POST['release-date'])) {
-            $release_date = sanitize_text_field($_POST['release-date']);
+            $release_date = strtotime(sanitize_text_field($_POST['release-date']));
             update_post_meta($post_id, '_release_date', $release_date);
         }
     }
+
+    public static function excerptMeta($content) {
+
+        global $post;
+              
+        if ($post->post_type !== 'cl_film') {
+            return $content;
+        }
+
+        if (is_singular('cl_film')) {
+            return $content;
+        }
+
+        $ticket_price = get_post_meta($post->ID, '_ticket_price', true);
+        $release_date = date('m/d/Y', (int) get_post_meta($post->ID, '_release_date', true));
+        $country = get_the_term_list( $post->ID, 'country', '<strong>Country:</strong> ', ', ' );
+        $genre = get_the_term_list( $post->ID, 'genre', '<strong>Genre:</strong> ', ', ' );
+
+        return <<<HTML
+            $content
+            <div class="cl-film-excerpt">
+                <div class="cl-film-excerpt-meta entry-meta">
+                        <span><strong>Released:</strong> $release_date</span>
+                        <span><i class="fa fa-money" aria-hidden="true"></i> \$$ticket_price</span>
+						<span>$country</span>
+                        <span>$genre</span>
+                </div>
+            </div>
+
+HTML;
+
+    }
+
 }

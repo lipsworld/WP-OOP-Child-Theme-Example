@@ -8,4 +8,22 @@ Template:       unite
 Version:        0.0.1
 */
 
+.movie-widget-item-meta{
+    color: #999;
+    font-size: 11px;
+}
+
+.movie-widget-item-meta a{
+    color: inherit;
+    text-decoration: underline;
+}
+
+.cl-film-excerpt{
+    margin: 10px 0 20px 0;
+    color: #777;
+}
+
+.cl-film-excerpt .cl-film-excerpt-meta strong{
+    color: #54397E;
+}
 
