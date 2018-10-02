@@ -23,3 +23,5 @@ function unite_parent_theme_enqueue_styles() {
 	);
 
 }
+
+require_once __DIR__ . '/includes/includes.php';
