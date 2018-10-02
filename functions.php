@@ -10,5 +10,5 @@ define('CM_TEXT_DOMAIN', 'codeline-movies');
 
 // singleton 
 global $codeline_movies;
-$codeline_movies = CodelineMovies::getInstance();
+$codeline_movies = Codeline\CodelineMovies::getInstance();
 $codeline_movies::init();

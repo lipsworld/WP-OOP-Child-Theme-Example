@@ -1,8 +1,11 @@
 <?php
 
+namespace Codeline;
+
 class CodelineMovies{
 
-    protected static $instance = null, $initialized = false;
+    protected static $instance = null, $initialized = false, 
+        $className = 'Codeline\CodelineMovies';
 
     public static function getInstance() {
 
@@ -21,9 +24,16 @@ class CodelineMovies{
 
         self::$initialized = true;
         
-        add_action('after_switch_theme', ['CodelineMovies', 'versionCheck']);
-        add_action('wp_enqueue_scripts', ['CodelineMovies', 'enqueueScripts']);
-        add_action('wp_enqueue_scripts', ['CodelineMovies', 'enqueueStyles']);
+        add_action('after_switch_theme', [self::$className, 'versionCheck']);
+        add_action('after_switch_theme', 'flush_rewrite_rules');
+
+        add_action('wp_enqueue_scripts', [self::$className, 'enqueueScripts']);
+        add_action('wp_enqueue_scripts', [self::$className, 'enqueueStyles']);
+
+        // other init
+        add_action('init', ['Codeline\PostTypes', 'initialize']);
+        add_action('init', ['Codeline\Taxonomies', 'initialize'], 100);
+
     }
 
     public static function enqueueScripts() {}
@@ -47,7 +57,7 @@ class CodelineMovies{
         }
 
         // not compatible
-        add_action( 'admin_notices', ['CodelineMovies', 'uncompatibleNotice'] );
+        add_action( 'admin_notices', [self::$className, 'uncompatibleNotice'] );
 
         // Switch back to previous theme.
         switch_theme( $old_theme->stylesheet );

@@ -1,5 +1,7 @@
 <?php 
 
+namespace Codeline;
+
 /**
  * Register taxonomies
  * Genre, Country, Year and Actors
@@ -91,5 +93,3 @@ class Taxonomies {
     }
 
 }
-
-add_action('init', ['Taxonomies', 'initialize'], 100);

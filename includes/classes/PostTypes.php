@@ -1,5 +1,7 @@
 <?php 
 
+namespace Codeline;
+
 /**
  * Register custom post types 
  */
@@ -161,5 +163,3 @@ class PostTypes {
         }
     }
 }
-
-add_action('init', ['PostTypes', 'initialize']);
