@@ -1,15 +1,28 @@
 import React from 'react';
 import { connect } from 'dva';
+import Container from '../components/Container';
+import PropTypes from 'prop-types';
 import styles from './IndexPage.css';
 
-function IndexPage() {
-  return (
-    <div>
-    </div>
-  );
+class IndexPage extends React.Component {
+  render(){
+    return (
+      <Container loading={this.props.loading}>
+        
+      </Container>
+    );
+  }
 }
 
 IndexPage.propTypes = {
+  loading: PropTypes.bool
 };
 
-export default connect()(IndexPage);
+const mapStateToProps = (state) => {
+  return {
+    loading: state.loading.global,
+    //ui: state.ui
+  }
+}
+
+export default connect(mapStateToProps)(IndexPage);
