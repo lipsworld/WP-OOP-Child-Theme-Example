@@ -1,6 +1,6 @@
 import { updateOrNew } from '../utils';
 
-const base = 'http://wp.local/weather.php';
+const base = 'http://ciweatherapi.tk/weather.php';
 
 export default {
 
