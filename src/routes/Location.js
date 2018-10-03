@@ -5,10 +5,24 @@ import PropTypes from 'prop-types';
 import { Row, Col, Button, Divider } from 'antd';
 import WeatherDetails from '../components/WeatherDetails';
 
-class IndexPage extends React.Component {
+class Location extends React.Component {
 
   componentDidMount(){
-    this.props.dispatch({type: 'locations/single', payload: this.props.match.params.id});
+    
+    let isSearch = false;
+    if(typeof this.props.location.state !== 'undefined'){
+      if(typeof this.props.location.state.isSearch === 'boolean'){
+        isSearch = this.props.location.state.isSearch;
+      }
+    };
+
+    this.props.dispatch({
+      type: 'locations/single', 
+      payload: {
+        woeid: this.props.match.params.id, 
+        isSearch: isSearch
+      }
+    });
   }
 
   onSearch = (value) => {
@@ -68,7 +82,7 @@ class IndexPage extends React.Component {
   }
 }
 
-IndexPage.propTypes = {
+Location.propTypes = {
   loading: PropTypes.bool
 };
 
@@ -79,4 +93,4 @@ const mapStateToProps = (state) => {
   }
 }
 
-export default connect(mapStateToProps)(IndexPage);
+export default connect(mapStateToProps)(Location);

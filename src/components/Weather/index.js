@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import styles from './Weather.css';
 import { Card, Icon, Col, Row } from "antd";
 import { round } from '../../utils';
-import { Link } from 'dva/router';
 
 class Weather extends React.Component {
     
@@ -11,6 +10,17 @@ class Weather extends React.Component {
         if(! ('consolidated_weather' in this.props.data) ){
             this.props.loadDetails(this.props.woeid);
         }
+    }
+
+    showDetails = () => {
+        const route = '/weather/' + this.props.woeid;
+        console.log('weather click is search', this.props.isSearch);
+        this.props.history.push({
+            pathname: route,
+            state: {
+                isSearch: this.props.isSearch
+            }
+        })
     }
 
     render(){
@@ -37,9 +47,8 @@ class Weather extends React.Component {
         }
         
         const iconUrl = "https://www.metaweather.com/static/img/weather/" + weather_state_abbr + ".svg";
-        const route = '/weather/' + this.props.woeid;
-
-        let routeLink = <Link className={styles.more} to={route}>More <Icon type="arrow-right" /></Link>
+        let routeLink = <a onClick={this.showDetails} className={styles.more}>More <Icon type="arrow-right" /></a>
+        
         if(loading){
             routeLink = <a>Loading...</a>;
         }
@@ -74,13 +83,14 @@ Weather.propTypes = {
     styles: PropTypes.object,
     loading: PropTypes.bool,
     data: PropTypes.object.isRequired,
-    woeid: PropTypes.number.isRequired
+    woeid: PropTypes.number.isRequired,
+    history: PropTypes.object.isRequired
 };
 
 Weather.defaultProps = {
     styles: {},
-    data: {},
-    loading: false
+    loading: false,
+    isSearch: false
 }
 
 export default Weather;

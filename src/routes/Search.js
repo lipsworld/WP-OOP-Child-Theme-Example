@@ -13,9 +13,12 @@ class Search extends React.Component {
       this.props.history.push('/');
     }
 
-    if(this.props.searchResult.length === 0){
-      this.props.dispatch({type: 'locations/search', payload: this.props.match.params.query});
+    const value = this.props.match.params.query.trim();
+    if(this.props.prevSearchQuery === value){
+      return;
     }
+
+    this.props.dispatch({type: 'locations/search', payload: value});
   }
 
   onSearch = (value) => {
@@ -37,7 +40,10 @@ class Search extends React.Component {
   }
 
   loadDetails = (woeid) => {
-    this.props.dispatch({type: 'locations/fetchSingle', payload: {woeid: woeid, search: true}})
+    this.props.dispatch({
+      type: 'locations/fetchSingle', 
+      payload: {woeid: woeid, search: true}
+    });
   }
 
   render(){
@@ -68,7 +74,10 @@ class Search extends React.Component {
           }
           {this.props.searchResult && this.props.searchResult.map(city => 
             <Col {...width} style={colStyle} key={city.woeid}>
-              <Weather loading={true} woeid={city.woeid} data={city} loadDetails={this.loadDetails}></Weather>
+              <Weather
+                history={this.props.history}
+                loading={true} woeid={city.woeid} data={city} loadDetails={this.loadDetails} 
+                isSearch={true}></Weather>
             </Col>            
           )}
         </Row>
@@ -85,7 +94,8 @@ Search.propTypes = {
 const mapStateToProps = (state) => {
   return {
     loading: state.loading.global,
-    searchResult: state.locations.searchResult
+    searchResult: state.locations.searchResult,
+    prevSearchQuery: state.locations.prevSearchQuery
   }
 }
 

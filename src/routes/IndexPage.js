@@ -35,7 +35,7 @@ class IndexPage extends React.Component {
         <Row gutter={16}>
           {this.props.locations && this.props.locations.map(city => 
             <Col {...width} style={colStyle} key={city.woeid}>
-              <Weather loading={true} woeid={city.woeid} data={city} loadDetails={this.loadDetails}></Weather>
+              <Weather history={this.props.history} loading={true} woeid={city.woeid} data={city} loadDetails={this.loadDetails}></Weather>
             </Col>            
           )}
         </Row>

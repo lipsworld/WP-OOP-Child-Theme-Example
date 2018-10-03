@@ -51,21 +51,26 @@ export default {
     },
     *search({payload}, {call, put}){
       // http://wp.local/weather.php?command=search&keyword=dhaka
-      const url = base + '?command=search&keyword=' + encodeURIComponent(payload);
+      payload = encodeURIComponent(payload);
+      const url = base + '?command=search&keyword=' + payload;
       let data = yield fetch(url).then(data => data.json()).then(data => data);
-      yield put({type: 'saveSearchResult', payload: data})
+      yield put({type: 'saveSearchResult', payload: data});
+      yield put({type: 'saveSearchQuery', payload: payload})
       
     },
     *single({payload}, {select, put, call}){
-      payload = parseInt(payload, 10);
-      let data = yield select((state => state.locations.locations.filter(location => location.woeid === payload)));
+      const woeid = parseInt(payload.woeid, 10);
+      
+      let data = yield select((state => {
+        const source = payload.isSearch ? state.locations.searchResult : state.locations.locations;
+        return source.filter(location => location.woeid === woeid);
+      }));
       
       if(data.length === 0){
         // call api
-        const url = base + '?command=location&woeid=' + payload;
+        const url = base + '?command=location&woeid=' + payload.woeid;
         data = yield fetch(url).then(data => data.json()).then(data => data);
-        yield put({type: 'saveSingle', payload: data})
-        
+        yield put({type: 'saveSingle', payload: data});
       }else{
         data = data.pop();
       }
@@ -80,9 +85,10 @@ export default {
       
       if(payload.search){
         yield put({type: 'saveSearchResultSingle', payload: data})
-        return;
+      }else{
+        yield put({type: 'saveSingle', payload: data})
       }
-      yield put({type: 'saveSingle', payload: data})
+      
     }
   },
 
@@ -114,6 +120,9 @@ export default {
     saveSearchResultSingle(state, {payload}){
       const locations = updateOrNew(state.searchResult, payload, 'woeid');
       return { ...state, searchResult: locations };
+    },
+    saveSearchQuery(state, {payload}){
+      return { ...state, prevSearchQuery: payload};
     }
   },
 
