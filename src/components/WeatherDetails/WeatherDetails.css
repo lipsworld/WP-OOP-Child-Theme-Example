@@ -1,0 +1,23 @@
+.textCenter{
+    text-align: center;
+}
+
+.tempRange{
+    font-size: 20px;
+}
+.more{
+    display: block;
+}
+
+:global(.ant-card-actions > li > span){
+    width: auto;
+}
+
+.imgResponsive{
+    max-width: 100%;
+}
+
+.cardTitle{
+    color: #00697D;
+    font-weight: bold;
+}

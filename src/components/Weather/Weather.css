@@ -1,0 +1,48 @@
+.tempRange{
+    font-size: 20px;
+}
+.more{
+    display: block;
+}
+
+:global(.ant-card-actions > li > span){
+    width: auto;
+}
+
+.imgResponsive{
+    max-width: 100%;
+}
+
+.cardTitle{
+    color: #00697D;
+    font-weight: bold;
+}
+
+:global(.weather-card .ant-card-actions li){
+    cursor: pointer;
+}
+
+:global(.weather-card .ant-card-actions li:last-child){
+    background: #00697D;
+    color: white;
+    margin: 0;
+}
+
+:global(.weather-card .ant-card-actions li:last-child:hover){
+    background: #005565;
+}
+:global(.weather-card .ant-card-actions li span){
+    cursor: pointer;
+    display: block;
+}
+:global(.weather-card .ant-card-actions li a){
+    width: 100%;
+    max-width:none;
+    display: block;
+    padding: 15px 0;
+    color: inherit;
+}
+
+:global(.weather-card .ant-card-actions li a:hover){
+    color: white;
+}

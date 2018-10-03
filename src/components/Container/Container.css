@@ -1,3 +1,19 @@
+.header{
+  background-color: #005565;
+}
+
+.search input[type=text]{
+  background: #003e4b;
+  border-color: rgba(255, 255, 255, 0.2);
+  color: rgba(255, 255, 255, 0.7);
+}
+.search input[type=text]::placeholder{
+  color: rgba(255, 255, 255, 0.4);
+}
+:global(.anticon-search){
+  color: rgba(255, 255, 255, 0.4) !important;
+}
+
 .logo {
   width: 120px;
   height: 31px;
@@ -26,9 +42,14 @@
 .footer{
   text-align: center;
   font-size: 12px;
+  color: #aaa;
 }
 
 .footer a{
   color: inherit;
   text-decoration: underline;
+}
+
+.right{
+  float: right;
 }

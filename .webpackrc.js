@@ -1,5 +1,8 @@
 export default {
-    extraBabelPlugins: [
-        ["import", { "libraryName": "antd", "libraryDirectory": "es", "style": "css" }]
-    ]  
+  theme: {
+    "@primary-color": '#00697D'
+  },
+  extraBabelPlugins: [
+      ["import", { "libraryName": "antd", "libraryDirectory": "es", "style": true }]
+  ]  
 }

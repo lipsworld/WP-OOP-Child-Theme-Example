@@ -15,7 +15,11 @@
     "prop-types": "^15.6.2",
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
-    "react-helmet": "^5.2.0"
+    "react-helmet": "^5.2.0",
+    "react-moment": "^0.8.1",
+    "react-weathericons": "^1.0.4",
+    "remove": "^0.1.5",
+    "weather-icons-react": "^1.2.0"
   },
   "devDependencies": {
     "babel-plugin-dva-hmr": "^0.3.2",
