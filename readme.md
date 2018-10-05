@@ -1,0 +1,1 @@
+This weather app shows data from <a href="https://www.MetaWeather.com" target="_blank">MetaWeather.com</a>. You can find a live version of the app <a target="_blank" href="http://ciweatherapi.tk">here</a>.
