@@ -31,6 +31,7 @@ class WeatherDetails extends React.Component {
         the_temp = round(the_temp);
         max_temp = round(max_temp);
         min_temp = round(min_temp);
+        air_pressure = round(air_pressure);
 
         const iconUrl = "https://www.metaweather.com/static/img/weather/" + weather_state_abbr + ".svg";
         

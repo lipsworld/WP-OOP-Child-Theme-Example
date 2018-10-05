@@ -14,7 +14,6 @@ class Weather extends React.Component {
 
     showDetails = () => {
         const route = '/weather/' + this.props.woeid;
-        console.log('weather click is search', this.props.isSearch);
         this.props.history.push({
             pathname: route,
             state: {
@@ -26,6 +25,7 @@ class Weather extends React.Component {
     render(){
 
         const loading = ! ('consolidated_weather' in this.props.data );
+        
         let weather_state_abbr, weather_state_name, the_temp, max_temp, min_temp, humidity;
 
         if(!loading){
