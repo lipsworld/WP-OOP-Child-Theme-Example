@@ -9,7 +9,7 @@ class IndexPage extends React.Component {
 
   componentDidMount(){
     // default cities & woeid
-    const cities = ['Istanbul', 'Berlin', 'London', 'Helsinki', 'Dublin', 'Vancouver'];
+    const cities = ['Dhaka', 'Kolkata', 'Delhi', 'Bangkok', 'Singapore', 'London'];
     this.props.dispatch({type: 'locations/fetch', payload: cities});
   }
 
